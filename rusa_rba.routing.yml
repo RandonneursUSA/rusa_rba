@@ -1,0 +1,10 @@
+rusa_rba.rba_form:
+  path: '/rusa/rba'
+  defaults:
+    _title: 'RBA assign/update routes for events'
+    _form: '\Drupal\rusa_rba\Form\RusaRbaForm'
+  requirements:
+    _access: 'TRUE'
+rusa_rba.resources:
+  path: /pages/rba-resources
+

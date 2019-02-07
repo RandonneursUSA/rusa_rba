@@ -1,0 +1,48 @@
+<?php
+/**
+  @file: rusa_rba.module
+
+*/
+
+/**
+ * hook_preprocess_table
+ *
+ * We need this to hide the column for a hidden form value.
+ */
+function rusa_rba_preprocess_table(&$variables) {
+  if ($variables['attributes']['id'] == 'edit-event-data') {
+    foreach ($variables['rows'] as $key => &$row ) {
+      foreach ( $row['cells'] as &$cell ) {
+        if ( $cell['content']['#type'] == 'hidden' ) {
+          $cell['attributes']['hidden'] = TRUE;
+          $cell['attributes']['aria-hidden'] = 'true';
+          $cell['tag'] = 'span';
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * hook_mail
+ *
+ * Provides the templates for email notifications
+ *
+ */
+function rusa_rba_mail($key, &$message, $params) {
+
+  $body  = "Event calendar change summary for Region: " . $params['region_name'] . "\n";
+  $body .= "RBA: " . $params['rba_id'] . " " . $params['rba_name'] . "\n\n";
+
+  foreach ($params['events'] as $eid => $changes) { 
+    $body .= "Event date: " . $changes['date']  . "\n" . 
+                              $changes['route'] . "\n" .
+         "Event Distance: " . $changes['dist']  . "\n";
+  }
+
+  $body .= "\nNote: If route is TBD that means the route was unassigned.\n";
+
+  $message['subject'] = "RUSA Event Calendar has been updated";  
+  $message['body'][]  = Drupal\Core\Mail\MailFormatHelper::htmlToText($body);
+}
