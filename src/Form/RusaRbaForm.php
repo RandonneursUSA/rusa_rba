@@ -252,7 +252,7 @@ class RusaRbaForm extends FormBase {
                 $this->t("The server returned an error when posting your changes. The message is: <br />" . $message));
             }
             else {
-              drupal_set_message("Your updates have been saved.", 'status');
+              $this->messenger()->addStatus($this->t("Your updates have been saved."));
               $form_state->setValues(['stage' => 'fini']);
             }
           }
@@ -751,7 +751,7 @@ class RusaRbaForm extends FormBase {
 
       $result = $mail->mail('rusa_rba', 'notify', $to, 'en', $params, $reply = NULL, $send = TRUE);
 
-      drupal_set_message("Notification e-mail has been sent.", 'status');
+      $this->messenger()->addStatus($this->t("Notification e-mail has been sent."));
     }
     return $err; // We're not trapping any errors here, just passing them back.
   }
