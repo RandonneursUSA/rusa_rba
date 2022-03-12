@@ -10,7 +10,7 @@
  * We need this to hide the column for a hidden form value.
  */
 function rusa_rba_preprocess_table(&$variables) {
-  if ($variables['attributes']['id'] == 'edit-event-data') {
+  if (isset($variables['attributes']['id']) && $variables['attributes']['id'] == 'edit-event-data') {
     foreach ($variables['rows'] as $key => &$row ) {
       foreach ( $row['cells'] as &$cell ) {
         if ( $cell['content']['#type'] == 'hidden' ) {
