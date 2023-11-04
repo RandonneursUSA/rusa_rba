@@ -2,4 +2,4 @@ name: RUSA RBA
 type: module
 description: RUSA RBA Self Service
 package: RUSA
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
